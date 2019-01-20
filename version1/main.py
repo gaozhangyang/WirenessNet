@@ -1,11 +1,7 @@
-from util.node import Node
-from util.draw import GDraw
 import numpy as np
-import matplotlib.pyplot as plt
-from numba import cuda,jit
+from numba import jit
 import time
 import json
-import copy
 import argparse
 
 @jit
@@ -31,26 +27,6 @@ def gcd(a, b):
     while b != 0:
         a,b = b,a%b
     return a
-
-# for b in range(4,20,2):
-#     a=b-2
-#     # m=16;n=12;
-#     A = Node(a , a)
-#     B = Node(b , b)
-#     s1=[(i, 0) for i in range(0, a)]
-#     s2=[(i, i) for i in range(0, b )]
-#     s2.pop(1)
-#     A.set(s1)  # [(i,0) for i in range(0,5)]+
-#     B.set(s2)  # +[(i,i+1) for i in range(0,3)]
-#     for d in range(0, a**2):
-#         re,A_,B_ = A.compare(A, B, d)
-#         all = np.sum(re)
-#         if all == 0:
-#             print("a:{},b:{},d:{}".format(a, b, d))
-#             A.draw(title='A')
-#             B.draw(title='B')
-#             print(A_)
-#             print(B_)
 
 @jit
 def Go():
@@ -112,20 +88,6 @@ def read():
 
 	return info,err,handled,residue
 
-# residue2=[(a,b) for a in range(10,100,2) for b in range(10,100,2)]+[(a,b) for a in range(9,99,2) for b in range(9,99,2)]
-# residue2=set(residue2)
-# f=open('./handled.json','r+',encoding='utf-8')
-# handled=json.load(f)
-# handled=[tuple(one) for one in handled]
-# f.close()
-# handled=set(handled)
-# a=residue2-handled
-# a=list(a)
-# print(len(a))
-# f=open('./residue.json','w')
-# json.dump(a,f)
-# f.close()
-
 if __name__=="__main__":
 	parser=argparse.ArgumentParser()
 	parser.add_argument('-s','--param_start',help='start of residue')
@@ -134,7 +96,6 @@ if __name__=="__main__":
 	s=int(ARGS.param_start)
 	e=int(ARGS.param_end)
 
-	# s=0;e=3
 	t0=time.time()
 	f=open('./residue.json','r')
 	ab=json.load(f)
