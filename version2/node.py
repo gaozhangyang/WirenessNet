@@ -45,7 +45,7 @@ def compare3(A,B):
     num2 = B.shape[0]*B.shape[1]
     length=lcm(num1,num2)
 
-        # series1_: A节点矩阵拉伸成的行向量，长为num1
+    # series1_: A节点矩阵拉伸成的行向量，长为num1
     series1_ = np.array(A).reshape(num1)
     # series2_：B节点矩阵拉伸成的行向量，长为num2
     series2_ = np.array(B).reshape(num2)
@@ -59,10 +59,11 @@ def compare3(A,B):
 
         delay=[]
         for ai in a:
-            #偏置
+            #偏差，series2_中激活点相对于ai的位置偏差
             bias=set(np.where(np.roll(series2_,-ai)==1)[0])
-            #减去合法偏置
+            #减去合法偏差
             allBias=allBias-bias
+            #由于A固定从A0开始，所有激活点ai所处时间就是延迟，第一次相互发现的时候
             delay += [ai for k in range(len(bias))]
             if len(allBias)==0:
                 return np.array([Wa,Wb,np.max(delay)])

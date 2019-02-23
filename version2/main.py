@@ -20,10 +20,10 @@ def LetsGO(s,e,name):
 		A,B=initAB(one[0],one[0],one[1],one[1])
 		tmp=compare3(A,B)
 		result=np.vstack((result,tmp))
-		if s==e:
-			break
 		if s%100==0:
 			print(s)
+		if s==e+1:
+			break
 	R=pd.DataFrame(result,columns=['A','B','max_Delay'])
 	R.to_csv('./result_{}.csv'.format(name))
 
